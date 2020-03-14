@@ -26,3 +26,11 @@
   width: 100%;
   flex-grow: 1;
 }
+
+.App-Viewer-body {
+  background: white;
+  color: black;
+  padding: 25px;
+  text-align: left;
+  width: 100%;
+}

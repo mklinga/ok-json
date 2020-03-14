@@ -1,28 +1,17 @@
 import React from 'react';
-import OkJsonArray from '../OkJsonArray';
-import OkJsonString from '../OkJsonString';
-import OkJsonNumber from '../OkJsonNumber';
+import RenderBlock from '../RenderBlock';
 
 import './Viewer.css';
 
 type Props = {
-  data: object
+  data: {
+    [key: string]: any
+  }
 };
 
 const Viewer: React.SFC<Props> = ({ data }) => (
-  <div className="Viewer-body">
-    {Object.entries(data).map(([key, value]) => {
-      switch (value.type) {
-        case 'string':
-          return <OkJsonString key={key} data={{ key, value }} />;
-        case 'number':
-          return <OkJsonNumber key={key} data={{ key, value }} />;
-        case 'array':
-          return <OkJsonArray key={key} data={{ key, value }} />;
-        default:
-          return `${key}: ${JSON.stringify(value.value)}`;
-      }
-    })}
+  <div>
+    {Object.entries(data).map(([key, value]) => <RenderBlock key={key} data={{ key, value }} />)}
   </div>
 );
 

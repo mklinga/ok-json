@@ -8,12 +8,16 @@ import './App.css';
 const exampleJson = parseDataModel({
   text: 'A sample of the finest texts',
   number: 800,
-  array: [1, 2, 3, 4],
-  nestedArray: [1, [2, 3], 4],
-  // object: {
-  //   text: "Another text",
-  //   number: 600
-  // }
+  nestedArray: [1, [2, 'ABC', { booo: '123abc', truly_boo: ['ooooo'] }], 4],
+  godObject: {
+    text: 'Another text',
+    number: 600,
+    array: ['A', 'b', '___'],
+    obj: {
+      number: 400,
+      statement: { value: 0, description: 'blahblahblah' },
+    },
+  },
 });
 
 function App() {
@@ -41,7 +45,7 @@ function App() {
       </header>
       <main className="App-body">
         {data
-          ? <Viewer data={data} />
+          ? <div className="App-Viewer-body"><Viewer data={data} /></div>
           : <button type="button" onClick={pasteFromClipboard}>Paste from clipboard</button>}
       </main>
     </div>

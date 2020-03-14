@@ -1,21 +1,41 @@
 /* eslint-disable import/prefer-default-export */
-import { OkJsonObject, ResultType } from '../types';
+import { OkJsonObject, OkJsonValue, ResultType } from '../types';
 
 const parseType = (value: any): ResultType => {
   if (Array.isArray(value)) {
     return 'array';
   }
 
-  return (Number.isNaN(Number(value)) ? 'string' : 'number');
+  if (!Number.isNaN(Number(value))) {
+    return 'number';
+  }
+
+  if (typeof value === 'string') {
+    return 'string';
+  }
+
+  return 'object';
 };
 
-const parseDataItem = (value: any) => {
+const parseDataItem = (value: any): OkJsonValue => {
   const type = parseType(value);
 
   if (type === 'array') {
     return {
       type,
       value: value.map(parseDataItem),
+    };
+  }
+
+  if (type === 'object') {
+    return {
+      type,
+      value: Object
+        .entries(value)
+        .reduce((result, [key, objValue]) => ({
+          ...result,
+          [key]: parseDataItem(objValue),
+        }), {}),
     };
   }
 
