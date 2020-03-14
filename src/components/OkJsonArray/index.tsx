@@ -14,40 +14,46 @@ type Props = {
   }
 };
 
-const OkJsonArray: React.FC<Props> = ({ data: { key, value } }) => (
-  <div>
-    {key}
-    {' '}
-    :
-    {' '}
-    {value.value.map((nestedValue: OkJsonValue, index) => {
-      switch (nestedValue.type) {
-        case 'string':
-          return (
-            <OkJsonString
-              key={index.toString()}
-              data={{ key: index.toString(), value: nestedValue }}
-            />
-          );
-        case 'number':
-          return (
-            <OkJsonNumber
-              key={index.toString()}
-              data={{ key: index.toString(), value: nestedValue }}
-            />
-          );
-        case 'array':
-          return (
-            <OkJsonArray
-              key={index.toString()}
-              data={{ key: index.toString(), value: nestedValue }}
-            />
-          );
-        default:
-          return null;
-      }
-    })}
-  </div>
-);
+const OkJsonArray: React.FC<Props> = ({ data: { key, value } }) => {
+  console.log(key, value);
+  return (
+    <div className="Ok-block Ok-Array-block">
+      <div className="Ok-key Ok-Array-key">
+        {key}
+      </div>
+      <div className="Ok-value Ok-Array-value">
+        <div className="Ok-Array-bracket">[</div>
+        {value.value.map((nestedValue: OkJsonValue, index) => {
+          switch (nestedValue.type) {
+            case 'string':
+              return (
+                <OkJsonString
+                  key={index.toString()}
+                  data={{ key: index.toString(), value: nestedValue }}
+                />
+              );
+            case 'number':
+              return (
+                <OkJsonNumber
+                  key={index.toString()}
+                  data={{ key: index.toString(), value: nestedValue }}
+                />
+              );
+            case 'array':
+              return (
+                <OkJsonArray
+                  key={index.toString()}
+                  data={{ key: index.toString(), value: nestedValue }}
+                />
+              );
+            default:
+              return null;
+          }
+        })}
+        <div className="Ok-Array-bracket">]</div>
+      </div>
+    </div>
+  );
+};
 
 export default OkJsonArray;

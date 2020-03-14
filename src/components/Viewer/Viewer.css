@@ -5,3 +5,19 @@
   text-align: left;
   width: 100%;
 }
+
+.Ok-block {
+  display: flex;
+  align-items: flex-start;
+  font-size: 18px;
+}
+
+.Ok-block .Ok-key,
+.Ok-block .Ok-Array-bracket {
+  color: #888;
+}
+
+.Ok-block .Ok-key::after {
+  content: ':';
+  padding: 0 5px;
+}

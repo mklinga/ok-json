@@ -10,12 +10,13 @@ type Props = {
 };
 
 const OkJsonNumber: React.FC<Props> = ({ data: { key, value } }) => (
-  <div>
-    {key}
-    {' '}
-    :
-    {' '}
-    {value.value}
+  <div className="Ok-block Ok-Number-block">
+    <div className="Ok-key Ok-Number-key">
+      {key}
+    </div>
+    <div className="Ok-value Ok-Number-value">
+      {value.value}
+    </div>
   </div>
 );
 

@@ -9,26 +9,29 @@ const parseType = (value: any): ResultType => {
   return (Number.isNaN(Number(value)) ? 'string' : 'number');
 };
 
+const parseDataItem = (value: any) => {
+  const type = parseType(value);
+
+  if (type === 'array') {
+    return {
+      type,
+      value: value.map(parseDataItem),
+    };
+  }
+
+  return {
+    value,
+    type,
+  };
+};
+
 export const parseDataModel = (data: object): OkJsonObject => {
   const resultObject: OkJsonObject = Object.entries(data).reduce((result, [key, value]) => {
-    const type = parseType(value);
-
-    if (type === 'array') {
-      return {
-        ...result,
-        [key]: {
-          type,
-          value: value.map((x: any) => ({ value: x, type: parseType(x) })),
-        },
-      };
-    }
+    const parsedValue = parseDataItem(value);
 
     return {
       ...result,
-      [key]: {
-        value,
-        type,
-      },
+      [key]: parsedValue,
     };
   }, {});
 
