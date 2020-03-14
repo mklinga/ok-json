@@ -1,10 +1,22 @@
 import React from 'react';
-import OkJson from './components/OkJson';
+import Viewer from './components/Viewer';
+
+import { parseDataModel } from './utils/model';
+
 import './App.css';
 
+const exampleJson = {
+  text: 'A sample of the finest texts',
+  number: 800,
+  // array: [ 1, 2, 3, 4 ],
+  // object: {
+  //   text: "Another text",
+  //   number: 600
+  // }
+};
 
 function App() {
-  const [data, setData] = React.useState<object | null>(null);
+  const [data, setData] = React.useState<object | null>(exampleJson);
   const [error, setError] = React.useState<string | null>(null);
 
   const pasteFromClipboard = () => {
@@ -12,7 +24,7 @@ function App() {
       .then((text) => {
         try {
           setError(null);
-          setData(JSON.parse(text));
+          setData(parseDataModel(JSON.parse(text)));
         } catch (e) {
           setError('That does not look like json...');
         }
@@ -28,7 +40,7 @@ function App() {
       </header>
       <main className="App-body">
         {data
-          ? <OkJson data={data} />
+          ? <Viewer data={data} />
           : <button type="button" onClick={pasteFromClipboard}>Paste from clipboard</button>}
       </main>
     </div>
