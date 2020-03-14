@@ -29,6 +29,14 @@
   display: inline;
 }
 
+.Ok-Number-value {
+  color: #306ac1;
+}
+
+.Ok-String-value {
+  color: #926012;
+}
+
 .Ok-Array-value.open > .Ok-Json-body,
 .Ok-Array-value.open > .Ok-Array-bracket-close,
 .Ok-Object-value.open > .Ok-Object-bracket-close,
@@ -47,7 +55,6 @@
   padding: 0;
 }
 
-.Ok-key:hover + .Ok-value > .Ok-Json-body,
-.Ok-value:hover > .Ok-Json-body {
-  background: #f0f0f0;
+.Ok-closable-button:hover {
+  text-decoration: underline;
 }

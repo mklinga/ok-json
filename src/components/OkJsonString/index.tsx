@@ -10,11 +10,11 @@ type Props = {
 };
 
 const OkJsonString: React.FC<Props> = ({ data: { key, value } }) => (
-  <div className="Ok-block Ok-Number-block">
-    <div className="Ok-key Ok-Number-key">
+  <div className="Ok-block Ok-String-block">
+    <div className="Ok-key Ok-String-key">
       {key}
     </div>
-    <div className="Ok-value Ok-Number-value">
+    <div className="Ok-value Ok-String-value">
       &quot;
       {value.value}
       &quot;
