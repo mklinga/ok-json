@@ -5,7 +5,7 @@ import { parseDataModel } from './utils/model';
 
 import './App.css';
 
-const exampleJson = {
+const exampleJson = parseDataModel({
   text: 'A sample of the finest texts',
   number: 800,
   // array: [ 1, 2, 3, 4 ],
@@ -13,7 +13,7 @@ const exampleJson = {
   //   text: "Another text",
   //   number: 600
   // }
-};
+});
 
 function App() {
   const [data, setData] = React.useState<object | null>(exampleJson);

@@ -1,10 +1,10 @@
 /* eslint-disable import/prefer-default-export */
-import { ResultObject, ResultType } from '../types';
+import { OkJsonObject, ResultType } from '../types';
 
 const parseType = (value: any): ResultType => (Number.isNaN(Number(value)) ? 'string' : 'number');
 
-export const parseDataModel = (data: object): ResultObject => {
-  const resultObject: ResultObject = {} as ResultObject;
+export const parseDataModel = (data: object): OkJsonObject => {
+  const resultObject: OkJsonObject = {} as OkJsonObject;
   Object.entries(data).forEach(([key, value]) => {
     resultObject[key] = {
       value,
@@ -12,5 +12,6 @@ export const parseDataModel = (data: object): ResultObject => {
     };
   });
 
+  console.log('resultobj', resultObject);
   return resultObject;
 };

@@ -1,10 +1,10 @@
 export type ResultType = 'number' | 'string';
 
-export type ResultValue = {
+export type OkJsonValue = {
   value: any,
   type: ResultType
 };
 
-export type ResultObject = {
-  [key: string]: ResultValue
+export type OkJsonObject = {
+  [key: string]: OkJsonValue
 };
