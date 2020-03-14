@@ -8,7 +8,7 @@ import './App.css';
 const exampleJson = parseDataModel({
   text: 'A sample of the finest texts',
   number: 800,
-  // array: [ 1, 2, 3, 4 ],
+  array: [1, 2, 3, 4],
   // object: {
   //   text: "Another text",
   //   number: 600

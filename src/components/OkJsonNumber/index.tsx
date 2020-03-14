@@ -9,17 +9,14 @@ type Props = {
   }
 };
 
-const OkJsonNumber: React.FC<Props> = ({ data: { key, value } }) => {
-  console.log('got number', value, 'for key', key);
-  return (
-    <div>
-      {key}
-      {' '}
-      :
-      {' '}
-      {value.value}
-    </div>
-  );
-};
+const OkJsonNumber: React.FC<Props> = ({ data: { key, value } }) => (
+  <div>
+    {key}
+    {' '}
+    :
+    {' '}
+    {value.value}
+  </div>
+);
 
 export default OkJsonNumber;

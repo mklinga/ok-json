@@ -9,19 +9,16 @@ type Props = {
   }
 };
 
-const OkJsonString: React.FC<Props> = ({ data: { key, value } }) => {
-  console.log('got value', value, 'for key', key);
-  return (
-    <div>
-      {key}
-      {' '}
-      :
-      {' '}
-      &quot;
-      {value.value}
-      &quot;
-    </div>
-  );
-};
+const OkJsonString: React.FC<Props> = ({ data: { key, value } }) => (
+  <div>
+    {key}
+    {' '}
+    :
+    {' '}
+    &quot;
+    {value.value}
+    &quot;
+  </div>
+);
 
 export default OkJsonString;

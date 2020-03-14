@@ -1,8 +1,14 @@
-export type ResultType = 'number' | 'string';
+export type ResultType = 'number' | 'string' | 'array';
 
 export type OkJsonValue = {
-  value: any,
-  type: ResultType
+  type: 'number',
+  value: number
+} | {
+  type: 'string',
+  value: string
+} | {
+  type: 'array',
+  value: Array<any>
 };
 
 export type OkJsonObject = {
