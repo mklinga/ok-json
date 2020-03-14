@@ -2,7 +2,7 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
@@ -28,9 +28,10 @@
 }
 
 .App-Viewer-body {
+  font-family: monospace !important;
   background: white;
   color: black;
-  padding: 25px;
+  padding: 20px 10px;
   text-align: left;
   width: 100%;
 }

@@ -5,10 +5,12 @@ import { parseDataModel } from './utils/model';
 
 import './App.css';
 
-const exampleJson = parseDataModel({
+const mockJson = parseDataModel({
   text: 'A sample of the finest texts',
-  number: 800,
+  texts: 'A sample of the finest texts',
   nestedArray: [1, [2, 'ABC', { booo: '123abc', truly_boo: ['ooooo'] }], 4],
+  number: 800,
+  number2: 800,
   godObject: {
     text: 'Another text',
     number: 600,
@@ -21,7 +23,7 @@ const exampleJson = parseDataModel({
 });
 
 function App() {
-  const [data, setData] = React.useState<object | null>(exampleJson);
+  const [data, setData] = React.useState<object | null>(mockJson);
   const [error, setError] = React.useState<string | null>(null);
 
   const pasteFromClipboard = () => {

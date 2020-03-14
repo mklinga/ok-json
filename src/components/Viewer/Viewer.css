@@ -1,12 +1,17 @@
-.Ok-block {
+.Ok-Json-body {
   display: flex;
-  align-items: flex-start;
+}
+
+.Ok-block {
   font-size: 18px;
+  display: inline-block;
 }
 
 .Ok-block .Ok-key,
-.Ok-block .Ok-Array-bracket,
-.Ok-block .Ok-Object-bracket {
+.Ok-block .Ok-Array-bracket-close,
+.Ok-block .Ok-Object-bracket-close,
+.Ok-block .Ok-Array-bracket-open,
+.Ok-block .Ok-Object-bracket-open {
   color: #888;
 }
 
@@ -16,5 +21,33 @@
 }
 
 .Ok-block .Ok-key {
+  display: inline;
   margin-left: 15px;
+}
+
+.Ok-value {
+  display: inline;
+}
+
+.Ok-Array-value.open > .Ok-Json-body,
+.Ok-Array-value.open > .Ok-Array-bracket-close,
+.Ok-Object-value.open > .Ok-Object-bracket-close,
+.Ok-Object-value.open > .Ok-Json-body {
+  margin-left: 15px;
+}
+
+.Ok-closable-button {
+  font-family: monospace;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #888;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+.Ok-key:hover + .Ok-value > .Ok-Json-body,
+.Ok-value:hover > .Ok-Json-body {
+  background: #f0f0f0;
 }

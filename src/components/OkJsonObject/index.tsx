@@ -7,17 +7,29 @@ type Props = {
   children: React.ReactNode
 };
 
-const OkJsonObject: React.FC<Props> = ({ children, data: { key } }) => (
-  <div className="Ok-block Ok-Object-block">
-    <div className="Ok-key Ok-Object-key">
-      {key}
+const OkJsonObject = ({ children, data: { key } }: Props) => {
+  const [closed, setClosed] = React.useState<boolean>(false);
+
+  const buttonClassName = closed
+    ? 'Ok-closable-button Ok-closable-button-closed'
+    : 'Ok-closable-button Ok-closable-button-open';
+
+  const valueClassName = closed
+    ? 'Ok-value Ok-Object-value closed'
+    : 'Ok-value Ok-Object-value open';
+
+  return (
+    <div className="Ok-block Ok-Object-block">
+      <div className="Ok-key Ok-Object-key">
+        <button className={buttonClassName} type="button" onClick={() => setClosed(!closed)}>{key}</button>
+      </div>
+      <div className={valueClassName}>
+        <span className="Ok-Object-bracket-open">{'{'}</span>
+        {closed ? ' ... ' : children}
+        <span className="Ok-Object-bracket-close">{'}'}</span>
+      </div>
     </div>
-    <div className="Ok-value Ok-Object-value">
-      <div className="Ok-Object-bracket">{'{'}</div>
-      {children}
-      <div className="Ok-Object-bracket">{'}'}</div>
-    </div>
-  </div>
-);
+  );
+};
 
 export default OkJsonObject;

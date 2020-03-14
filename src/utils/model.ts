@@ -6,12 +6,12 @@ const parseType = (value: any): ResultType => {
     return 'array';
   }
 
-  if (!Number.isNaN(Number(value))) {
-    return 'number';
-  }
-
   if (typeof value === 'string') {
     return 'string';
+  }
+
+  if (!Number.isNaN(Number(value))) {
+    return 'number';
   }
 
   return 'object';
@@ -40,8 +40,8 @@ const parseDataItem = (value: any): OkJsonValue => {
   }
 
   return {
-    value,
     type,
+    value,
   };
 };
 
@@ -55,6 +55,5 @@ export const parseDataModel = (data: object): OkJsonObject => {
     };
   }, {});
 
-  console.log('resultobj', resultObject);
   return resultObject;
 };
