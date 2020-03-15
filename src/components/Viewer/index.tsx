@@ -22,7 +22,7 @@ const Viewer: React.SFC<Props> = ({ data, filter }) => {
     <div>
       {visibleData.map((visibleDataSection) => (
         <div key={generateId()} className="App-Viewer-body">
-          <RenderBlock data={{ key: '', value: visibleDataSection }} />
+          <RenderBlock data={{ key: '', value: visibleDataSection }} filter={filter} />
         </div>
       ))}
     </div>

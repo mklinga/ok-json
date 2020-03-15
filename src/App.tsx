@@ -12,7 +12,7 @@ const mockJson = parseDataModel({
     b: [
       1,
       { is_this: true },
-      3,
+      'abc def',
     ],
     c: 99,
   },
