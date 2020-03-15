@@ -7,22 +7,23 @@ import { Filter, OkJsonValue } from './types';
 
 import './App.css';
 
-const mockJson = parseDataModel({
-  a: {
-    b: [
-      1,
-      { is_this: true },
-      'abc def',
-    ],
-    c: 99,
-  },
-  d: {
-    e: 12,
-  },
-});
+// const mockJson = parseDataModel({
+//   a: {
+//     b: [
+//       1,
+//       { is_this: true },
+//       'abc def',
+//       null,
+//     ],
+//     c: 99,
+//   },
+//   d: {
+//     e: 12,
+//   },
+// });
 
 function App() {
-  const [data, setData] = React.useState<OkJsonValue | null>(mockJson);
+  const [data, setData] = React.useState<OkJsonValue | null>(null);
   const [error, setError] = React.useState<string | null>(null);
   const [filter, setFilter] = React.useState<Filter>({ value: '' });
 

@@ -1,9 +1,12 @@
 import { Filter, OkJsonValue } from '../types';
 import * as C from './common';
 
-export const isHit = (value: string | boolean | number = '', filter: Filter = { value: '' }): boolean => (
-  value.toString().toLowerCase().includes(filter.value.toLowerCase())
-);
+export const isHit = (value: null | string | boolean | number = '', filter: Filter = { value: '' }): boolean => {
+  if (value === null) {
+    return isHit('null', filter);
+  }
+  return value.toString().toLowerCase().includes(filter.value.toLowerCase());
+};
 
 export const getHitPaths = (data: OkJsonValue, filter: Filter): Array<string> => {
   function findHits(value: OkJsonValue, path: string = ''): Array<string | null> {
@@ -11,6 +14,7 @@ export const getHitPaths = (data: OkJsonValue, filter: Filter): Array<string> =>
       case 'string':
       case 'boolean':
       case 'number':
+      case 'null':
         return [isHit(value.value, filter) ? path : null];
       case 'array':
         return value.value.flatMap((nestedValue, index) => findHits(nestedValue, `${path}.${index}`));

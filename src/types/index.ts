@@ -1,30 +1,36 @@
-export type ResultType = 'number' | 'string' | 'array' | 'object' | 'boolean';
+export type ResultType = 'number' | 'string' | 'array' | 'object' | 'boolean' | 'null';
 
-type OkJsonNumberPrimitive = {
+export type OkJsonNumberPrimitive = {
   type: 'number',
   value: number
 };
 
-type OkJsonStringPrimitive = {
+export type OkJsonStringPrimitive = {
   type: 'string',
   value: string
 };
 
-type OkJsonBooleanPrimitive = {
+export type OkJsonNullPrimitive = {
+  type: 'null',
+  value: null
+};
+
+export type OkJsonBooleanPrimitive = {
   type: 'boolean',
   value: boolean
 };
 
-type OkJsonArrayPrimitive = {
+export type OkJsonArrayPrimitive = {
   type: 'array',
   value: Array<any>
 };
 
-type OkJsonObjectPrimitive = {
+export type OkJsonObjectPrimitive = {
   type: 'object',
   value: {
     [key: string]: OkJsonNumberPrimitive |
     OkJsonStringPrimitive |
+    OkJsonNullPrimitive |
     OkJsonBooleanPrimitive |
     OkJsonArrayPrimitive |
     OkJsonObjectPrimitive
@@ -34,6 +40,7 @@ type OkJsonObjectPrimitive = {
 export type OkJsonValue =
   OkJsonNumberPrimitive |
   OkJsonStringPrimitive |
+  OkJsonNullPrimitive |
   OkJsonBooleanPrimitive |
   OkJsonArrayPrimitive |
   OkJsonObjectPrimitive;

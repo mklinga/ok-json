@@ -2,6 +2,10 @@
 import { OkJsonObject, OkJsonValue, ResultType } from '../types';
 
 const parseType = (value: any): ResultType => {
+  if (value === null) {
+    return 'null';
+  }
+
   if (Array.isArray(value)) {
     return 'array';
   }

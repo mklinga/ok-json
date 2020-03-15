@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { isHit } from '../../utils/filter';
-import { OkJsonValue, Filter } from '../../types';
+import { OkJsonBooleanPrimitive, Filter } from '../../types';
 
 type Props = {
   data: {
     key: string,
-    value: OkJsonValue
+    value: OkJsonBooleanPrimitive
   },
   filter: Filter
 };
