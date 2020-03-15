@@ -45,7 +45,7 @@ function App() {
       <header className="App-header">
         Feed me JSON!
         {error ? <span className="App-error">{error}</span> : null}
-        <Toolbar filter={filter} setFilter={setFilter} />
+        <Toolbar setFilter={setFilter} />
       </header>
       <main className="App-body">
         {data

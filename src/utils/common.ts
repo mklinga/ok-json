@@ -1,5 +1,7 @@
 export const identity = (x: any): any => x;
 
+export const noop = (): void => { };
+
 export const not = (x: any): boolean => !x;
 
 export const doto = (method: string, ...args: any) => (x: any) => x[method](...args);
