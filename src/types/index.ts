@@ -34,3 +34,7 @@ export type OkJsonValue =
 export type OkJsonObject = {
   [key: string]: OkJsonValue
 };
+
+export type Filter = {
+  value: string
+};

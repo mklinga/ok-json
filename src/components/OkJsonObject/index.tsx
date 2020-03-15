@@ -20,9 +20,17 @@ const OkJsonObject = ({ children, data: { key } }: Props) => {
 
   return (
     <div className="Ok-block Ok-Object-block">
-      <div className="Ok-key Ok-Object-key">
-        <button className={buttonClassName} type="button" onClick={() => setClosed(!closed)}>{key}</button>
-      </div>
+      {key ? (
+        <div className="Ok-key Ok-Object-key">
+          <button
+            className={buttonClassName}
+            type="button"
+            onClick={() => setClosed(!closed)}
+          >
+            {key}
+          </button>
+        </div>
+      ) : null}
       <div className={valueClassName}>
         <span className="Ok-Object-bracket-open">{'{'}</span>
         {closed ? ' ... ' : children}

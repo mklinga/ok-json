@@ -1,30 +1,30 @@
 import React from 'react';
 import Viewer from './components/Viewer';
+import Toolbar from './components/Toolbar';
 
 import { parseDataModel } from './utils/model';
+import { Filter, OkJsonValue } from './types';
 
 import './App.css';
 
 const mockJson = parseDataModel({
-  text: 'A sample of the finest texts',
-  texts: 'A sample of the finest texts',
-  nestedArray: [1, [2, 'ABC', { booo: '123abc', truly_boo: ['ooooo'] }], 4],
-  number: 800,
-  number2: 800,
-  godObject: {
-    text: 'Another text',
-    number: 600,
-    array: ['A', 'b', '___'],
-    obj: {
-      number: 400,
-      statement: { value: 0, description: 'blahblahblah' },
-    },
+  a: {
+    b: [
+      1,
+      2,
+      3,
+    ],
+    c: 99,
+  },
+  d: {
+    e: 12,
   },
 });
 
 function App() {
-  const [data, setData] = React.useState<object | null>(mockJson);
+  const [data, setData] = React.useState<OkJsonValue | null>(mockJson);
   const [error, setError] = React.useState<string | null>(null);
+  const [filter, setFilter] = React.useState<Filter>({ value: '' });
 
   const pasteFromClipboard = () => {
     navigator.clipboard.readText()
@@ -44,10 +44,11 @@ function App() {
       <header className="App-header">
         Feed me JSON!
         {error ? <span className="App-error">{error}</span> : null}
+        <Toolbar filter={filter} setFilter={setFilter} />
       </header>
       <main className="App-body">
         {data
-          ? <div className="App-Viewer-body"><Viewer data={data} /></div>
+          ? <div className="App-Viewer-body"><Viewer data={data} filter={filter} /></div>
           : <button type="button" onClick={pasteFromClipboard}>Paste from clipboard</button>}
       </main>
     </div>

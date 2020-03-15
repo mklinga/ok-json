@@ -45,7 +45,7 @@ const parseDataItem = (value: any): OkJsonValue => {
   };
 };
 
-export const parseDataModel = (data: object): OkJsonObject => {
+export const parseDataModel = (data: object): OkJsonValue => {
   const resultObject: OkJsonObject = Object.entries(data).reduce((result, [key, value]) => {
     const parsedValue = parseDataItem(value);
 
@@ -55,5 +55,5 @@ export const parseDataModel = (data: object): OkJsonObject => {
     };
   }, {});
 
-  return resultObject;
+  return { type: 'object', value: resultObject };
 };
