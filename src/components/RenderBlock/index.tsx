@@ -2,6 +2,7 @@
 import React from 'react';
 import OkJsonArray from '../OkJsonArray';
 import OkJsonString from '../OkJsonString';
+import OkJsonBoolean from '../OkJsonBoolean';
 import OkJsonNumber from '../OkJsonNumber';
 import OkJsonObject from '../OkJsonObject';
 
@@ -20,6 +21,8 @@ const RenderBlock: React.SFC<Props> = ({ data: { key, value } }) => (
       switch (value.type) {
         case 'string':
           return <OkJsonString key={key} data={{ key, value }} />;
+        case 'boolean':
+          return <OkJsonBoolean key={key} data={{ key, value }} />;
         case 'number':
           return <OkJsonNumber key={key} data={{ key, value }} />;
         case 'array':

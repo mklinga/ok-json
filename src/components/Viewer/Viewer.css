@@ -15,6 +15,14 @@
   color: #888;
 }
 
+.Ok-Object-bracket-open {
+  margin-left: 15px;
+}
+
+.Ok-key + .Ok-value > .Ok-Object-bracket-open {
+  margin-left: 0;
+}
+
 .Ok-block .Ok-key::after {
   content: ':';
   padding: 0 5px;
@@ -35,6 +43,10 @@
 
 .Ok-String-value {
   color: #926012;
+}
+
+.Ok-Boolean-value {
+  color: #ca328c;
 }
 
 .Ok-Array-value.open > .Ok-Json-body,

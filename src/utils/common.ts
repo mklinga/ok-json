@@ -40,3 +40,5 @@ export const update = (path: Array<string>, value: any, obj: any): any => {
 
   return { ...nextObj, [idx]: value };
 };
+
+export const generateId: () => string = () => Math.random().toString(36).substring(2, 15);

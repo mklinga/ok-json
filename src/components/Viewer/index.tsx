@@ -2,6 +2,7 @@ import React from 'react';
 import RenderBlock from '../RenderBlock';
 
 import { getHitPaths, pickByPath } from '../../utils/filter';
+import { generateId } from '../../utils/common';
 
 import { Filter, OkJsonValue } from '../../types';
 
@@ -13,11 +14,17 @@ type Props = {
 };
 
 const Viewer: React.SFC<Props> = ({ data, filter }) => {
-  const visibleData = (filter.value) ? pickByPath(data, getHitPaths(data, filter)) : data;
+  const visibleData: Array<OkJsonValue> = (filter.value)
+    ? pickByPath(data, getHitPaths(data, filter))
+    : [data];
 
   return (
     <div>
-      <RenderBlock data={{ key: '', value: visibleData }} />
+      {visibleData.map((visibleDataSection) => (
+        <div key={generateId()} className="App-Viewer-body">
+          <RenderBlock data={{ key: '', value: visibleDataSection }} />
+        </div>
+      ))}
     </div>
   );
 };

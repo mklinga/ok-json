@@ -13,12 +13,12 @@ describe('pickByPath', () => {
 
     const path = ['a'];
 
-    const expected = {
+    const expected = [{
       type: 'object',
       value: {
         a: { type: 'number', value: 123 },
       },
-    };
+    }];
 
     const result = F.pickByPath(data, path);
 
@@ -42,7 +42,7 @@ describe('pickByPath', () => {
 
     const path = ['a.b'];
 
-    const expected = {
+    const expected = [{
       type: 'object',
       value: {
         a: {
@@ -52,7 +52,7 @@ describe('pickByPath', () => {
           },
         },
       },
-    };
+    }];
 
     const result = F.pickByPath(data, path);
 
@@ -76,7 +76,7 @@ describe('pickByPath', () => {
 
     const path = ['a.0'];
 
-    const expected = {
+    const expected = [{
       type: 'object',
       value: {
         a: {
@@ -86,7 +86,7 @@ describe('pickByPath', () => {
           ],
         },
       },
-    };
+    }];
 
     const result = F.pickByPath(data, path);
 
@@ -122,7 +122,7 @@ describe('pickByPath', () => {
 
     const path = ['a.b.1'];
 
-    const expected = {
+    const expected = [{
       type: 'object',
       value: {
         a: {
@@ -137,7 +137,7 @@ describe('pickByPath', () => {
           },
         },
       },
-    };
+    }];
 
     const result = F.pickByPath(data, path);
 

@@ -5,6 +5,7 @@ export const getHitPaths = (data: OkJsonValue, filter: Filter): Array<string> =>
   function findHits(value: OkJsonValue, path: string = ''): Array<string | null> {
     switch (value.type) {
       case 'string':
+      case 'boolean':
       case 'number': {
         if (value.value.toString().toLowerCase().includes(filter.value.toLowerCase())) {
           return [path];
@@ -31,9 +32,9 @@ export const getHitPaths = (data: OkJsonValue, filter: Filter): Array<string> =>
   return hitPaths;
 };
 
-export const pickByPath = (data: OkJsonValue, path: Array<string>): OkJsonValue => {
+export const pickByPath = (data: OkJsonValue, path: Array<string>): Array<OkJsonValue> => {
   if (!path || !path.length) {
-    return data;
+    return [data];
   }
 
   // here be monsters..
@@ -66,5 +67,5 @@ export const pickByPath = (data: OkJsonValue, path: Array<string>): OkJsonValue 
     return res;
   });
 
-  return paths[0];
+  return paths;
 };

@@ -1,4 +1,4 @@
-export type ResultType = 'number' | 'string' | 'array' | 'object';
+export type ResultType = 'number' | 'string' | 'array' | 'object' | 'boolean';
 
 type OkJsonNumberPrimitive = {
   type: 'number',
@@ -8,6 +8,11 @@ type OkJsonNumberPrimitive = {
 type OkJsonStringPrimitive = {
   type: 'string',
   value: string
+};
+
+type OkJsonBooleanPrimitive = {
+  type: 'boolean',
+  value: boolean
 };
 
 type OkJsonArrayPrimitive = {
@@ -20,6 +25,7 @@ type OkJsonObjectPrimitive = {
   value: {
     [key: string]: OkJsonNumberPrimitive |
     OkJsonStringPrimitive |
+    OkJsonBooleanPrimitive |
     OkJsonArrayPrimitive |
     OkJsonObjectPrimitive
   }
@@ -28,6 +34,7 @@ type OkJsonObjectPrimitive = {
 export type OkJsonValue =
   OkJsonNumberPrimitive |
   OkJsonStringPrimitive |
+  OkJsonBooleanPrimitive |
   OkJsonArrayPrimitive |
   OkJsonObjectPrimitive;
 

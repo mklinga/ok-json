@@ -10,6 +10,10 @@ const parseType = (value: any): ResultType => {
     return 'string';
   }
 
+  if (Boolean(value) === value) {
+    return 'boolean';
+  }
+
   if (!Number.isNaN(Number(value))) {
     return 'number';
   }

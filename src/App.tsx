@@ -11,7 +11,7 @@ const mockJson = parseDataModel({
   a: {
     b: [
       1,
-      2,
+      { is_this: true },
       3,
     ],
     c: 99,
@@ -48,7 +48,7 @@ function App() {
       </header>
       <main className="App-body">
         {data
-          ? <div className="App-Viewer-body"><Viewer data={data} filter={filter} /></div>
+          ? <Viewer data={data} filter={filter} />
           : <button type="button" onClick={pasteFromClipboard}>Paste from clipboard</button>}
       </main>
     </div>
