@@ -3,6 +3,7 @@ import RenderBlock from '../RenderBlock';
 
 import { getHitPaths, pickByPath } from '../../utils/filter';
 import { generateId } from '../../utils/common';
+import { merge } from '../../utils/merge';
 
 import { Filter, OkJsonValue } from '../../types';
 
@@ -15,7 +16,8 @@ type Props = {
 
 const Viewer: React.SFC<Props> = ({ data, filter }) => {
   const visibleData: Array<OkJsonValue> = (filter.value)
-    ? pickByPath(data, getHitPaths(data, filter))
+    ? [pickByPath(data, getHitPaths(data, filter))
+      .reduce<OkJsonValue>((acc, p) => merge<OkJsonValue, OkJsonValue>(acc, p), {} as OkJsonValue)]
     : [data];
 
   return (
