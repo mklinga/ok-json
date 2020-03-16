@@ -1,6 +1,6 @@
 # Kinda-ok JSON viewer
 
-My own JSON viewer! I'm hoping it will someday be kinda ok.
+My own JSON viewer! It's gonna be kinda ok somedy.
 
 `npm start` / `npm test` / `npm run build`
 
