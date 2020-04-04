@@ -25,7 +25,9 @@ Filter syntax will be important. For now, the following magic is available.
 [ ] Support array/string/etc for root
 [ ] Support for more magic in the filter
 [ ] Pick keys
-[ ] Pick value with path
+[ ] Different view modes for filter (split / merge / hidden / closed)
+[ ] Filter with path syntax
+[ ] Open/close nodes logic (depth/all/etc)
 [ ] Copy value / part of the tree to clipboard
 [ ] Make it fast
 [ ] Sell the product to BigCorp (for 1.000.000 euros or more)
