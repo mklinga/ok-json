@@ -1,18 +1,17 @@
 import React from 'react';
 
-import { isHit } from '../../utils/filter';
-import { OkJsonBooleanPrimitive, Filter } from '../../types';
+import { OkJsonBooleanPrimitive, FilterType } from '../../types';
 
 type Props = {
   data: {
     key: string,
     value: OkJsonBooleanPrimitive
   },
-  filter: Filter
+  filter: FilterType
 };
 
 const OkJsonBoolean: React.FC<Props> = ({ data: { key, value }, filter }) => {
-  const hasHighlight = filter.value && isHit(value.value as boolean, filter);
+  const hasHighlight = filter.matches(value.value as boolean);
   const valueClassName = `Ok-value Ok-Boolean-value ${hasHighlight ? 'Ok-highlighted-value' : ''}`;
   return (
     <div className="Ok-block Ok-Boolean-block">

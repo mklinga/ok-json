@@ -1,11 +1,14 @@
 import React from 'react';
 
 import { noop } from '../../utils/common';
+import Filter from '../../utils/filter';
 
-import { Filter } from '../../types';
+import { FilterType } from '../../types';
+
+import './Toolbar.css';
 
 type Props = {
-  setFilter: React.Dispatch<React.SetStateAction<Filter>>
+  setFilter: React.Dispatch<React.SetStateAction<FilterType>>
 };
 
 const DEBOUNCE_VALUE = 300;
@@ -20,14 +23,23 @@ const Toolbar = ({ setFilter }: Props) => {
       return noop;
     }
 
-    const interval = setTimeout(() => setFilter({ value: inputValue }), DEBOUNCE_VALUE);
+    const interval = setTimeout(
+      () => setFilter(new Filter(inputValue)),
+      DEBOUNCE_VALUE,
+    );
 
     return () => clearTimeout(interval);
   }, [inputValue]);
 
   return (
-    <div>
-      <input type="text" onChange={(e) => setInputValue(e.target.value)} value={inputValue} />
+    <div className="Toolbar">
+      <input
+        className="Toolbar-filter"
+        type="text"
+        placeholder="filter"
+        onChange={(e) => setInputValue(e.target.value)}
+        value={inputValue}
+      />
     </div>
   );
 };

@@ -7,14 +7,14 @@ import OkJsonBoolean from '../OkJsonBoolean';
 import OkJsonNumber from '../OkJsonNumber';
 import OkJsonObject from '../OkJsonObject';
 
-import { OkJsonValue, Filter } from '../../types';
+import { OkJsonValue, FilterType } from '../../types';
 
 type Props = {
   data: {
     key: string,
     value: any
   },
-  filter: Filter
+  filter: FilterType
 };
 
 const RenderBlock: React.SFC<Props> = ({ data: { key, value }, filter }) => (

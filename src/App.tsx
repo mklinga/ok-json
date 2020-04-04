@@ -3,14 +3,15 @@ import Viewer from './components/Viewer';
 import DataInput from './components/DataInput';
 import Toolbar from './components/Toolbar';
 
-import { Filter, OkJsonValue } from './types';
+import Filter from './utils/filter';
+import { FilterType, OkJsonValue } from './types';
 
 import './App.css';
 
 function App() {
   const [data, setData] = React.useState<OkJsonValue | null>(null);
   const [error, setError] = React.useState<string | null>(null);
-  const [filter, setFilter] = React.useState<Filter>({ value: '' });
+  const [filter, setFilter] = React.useState<FilterType>(new Filter());
 
   return (
     <div className="App">

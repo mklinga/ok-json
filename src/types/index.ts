@@ -49,6 +49,11 @@ export type OkJsonObject = {
   [key: string]: OkJsonValue
 };
 
-export type Filter = {
+export interface FilterType {
+  matches: (obj: any) => boolean;
+  hasValue: () => boolean;
+}
+
+export type FilterQuery = {
   value: string
 };

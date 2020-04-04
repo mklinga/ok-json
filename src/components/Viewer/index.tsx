@@ -1,21 +1,21 @@
 import React from 'react';
 import RenderBlock from '../RenderBlock';
 
-import { getHitPaths, pickByPath } from '../../utils/filter';
+import { getHitPaths, pickByPath } from '../../utils/path';
 import { generateId } from '../../utils/common';
 import { merge } from '../../utils/merge';
 
-import { Filter, OkJsonValue } from '../../types';
+import { FilterType, OkJsonValue } from '../../types';
 
 import './Viewer.css';
 
 type Props = {
   data: OkJsonValue,
-  filter: Filter
+  filter: FilterType
 };
 
 const Viewer: React.SFC<Props> = ({ data, filter }) => {
-  const visibleData: Array<OkJsonValue> = (filter.value)
+  const visibleData: Array<OkJsonValue> = (filter.hasValue())
     ? [pickByPath(data, getHitPaths(data, filter))
       .reduce<OkJsonValue>((acc, p) => merge<OkJsonValue, OkJsonValue>(acc, p), {} as OkJsonValue)]
     : [data];
