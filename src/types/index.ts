@@ -54,6 +54,12 @@ export interface FilterType {
   hasValue: () => boolean;
 }
 
+export type FilterQueryFlags = {
+  ignoreCase: boolean,
+  matchCase: boolean
+};
+
 export type FilterQuery = {
-  value: string
+  value: string,
+  flags: FilterQueryFlags
 };

@@ -8,10 +8,12 @@ import { FilterType, OkJsonValue } from './types';
 
 import './App.css';
 
+const initialFilter = new Filter();
+
 function App() {
   const [data, setData] = React.useState<OkJsonValue | null>(null);
   const [error, setError] = React.useState<string | null>(null);
-  const [filter, setFilter] = React.useState<FilterType>(new Filter());
+  const [filter, setFilter] = React.useState<FilterType>(initialFilter);
 
   return (
     <div className="App">

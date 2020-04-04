@@ -1,16 +1,37 @@
 import { FilterType, FilterQuery } from '../types';
 
+const defaultQuery: FilterQuery = {
+  value: '',
+  flags: {
+    ignoreCase: false,
+    matchCase: false,
+  },
+};
+
 export default class Filter implements FilterType {
   query: FilterQuery;
 
   constructor(str: string = '') {
-    this.query = Filter.parseSearchString(str || '');
+    this.query = str
+      ? Filter.parseSearchString(str)
+      : defaultQuery;
   }
 
-  static parseSearchString(str: string): FilterQuery {
-    console.log('parsing', str);
-    return { value: str };
+  /* eslint-disable no-useless-escape */
+  static parseSearchString(value: string): FilterQuery {
+    const flags = {
+      ignoreCase: value.indexOf('\\c') > -1,
+      matchCase: value.indexOf('\\C') > -1,
+    };
+
+    const cleanFlags = (str: string): string => str.replace(/\\[C|c]/g, '');
+
+    return {
+      value: cleanFlags(value),
+      flags,
+    };
   }
+  /* eslint-enable no-useless-escape */
 
   hasValue() {
     return !!this.query.value;
@@ -25,6 +46,18 @@ export default class Filter implements FilterType {
       return this.matches('null');
     }
 
-    return obj.toString().toLowerCase().includes(this.query.value.toLowerCase());
+    const hay = obj.toString();
+    const needle = this.query.value;
+
+    if (this.query.flags.matchCase) {
+      return hay.indexOf(needle) > -1;
+    } if (this.query.flags.ignoreCase) {
+      return hay.toLowerCase().indexOf(needle.toLowerCase()) > -1;
+    }
+
+    // "smartCase" by default
+    return needle !== needle.toLowerCase()
+      ? hay.indexOf(needle) > -1
+      : hay.toLowerCase().indexOf(needle.toLowerCase()) > -1;
   }
 }
