@@ -25,12 +25,11 @@ const RenderBlock: React.SFC<Props> = (props) => {
     data: { key, value }, filter, hasMatch, parentMatches, isRoot,
   } = props;
 
-  const isPrimitive = ['string', 'null', 'boolean', 'number'].includes(value.type);
 
   return (
     <div className="Ok-Json-body">
       {(() => {
-        if (!isRoot && hasMatch && !value.match && !(isPrimitive && parentMatches)) {
+        if (!isRoot && hasMatch && (value.match === 'no-match') && !parentMatches) {
           return null;
         }
 
@@ -45,12 +44,12 @@ const RenderBlock: React.SFC<Props> = (props) => {
             return <OkJsonNumber key={key} data={{ key, value }} filter={filter} />;
           case 'array':
             return (
-              <OkJsonArray data={{ key }}>
+              <OkJsonArray data={{ key, value }} filter={filter}>
                 {value.value.map((nestedValue: OkJsonValue, index: number) => (
                   <RenderBlock
                     key={index.toString()}
                     hasMatch={hasMatch}
-                    parentMatches={value.match}
+                    parentMatches={value.match && value.match !== 'no-match'}
                     filter={filter}
                     data={{ key: index.toString(), value: nestedValue }}
                   />
@@ -60,12 +59,12 @@ const RenderBlock: React.SFC<Props> = (props) => {
 
           case 'object':
             return (
-              <OkJsonObject data={{ key }}>
+              <OkJsonObject data={{ key, value }} filter={filter}>
                 {Object.entries(value.value).map(([nestedKey, nestedValue]) => (
                   <RenderBlock
                     key={nestedKey}
                     hasMatch={hasMatch}
-                    parentMatches={value.match}
+                    parentMatches={value.match && value.match !== 'no-match'}
                     filter={filter}
                     data={{ key: nestedKey, value: nestedValue }}
                   />

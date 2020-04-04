@@ -31,7 +31,7 @@ const parseDataItem = (value: any): OkJsonValue => {
   if (type === 'array') {
     return {
       type,
-      match: false,
+      match: 'no-match',
       value: value.map(parseDataItem),
     };
   }
@@ -39,7 +39,7 @@ const parseDataItem = (value: any): OkJsonValue => {
   if (type === 'object') {
     return {
       type,
-      match: false,
+      match: 'no-match',
       value: Object
         .entries(value)
         .reduce((result, [key, objValue]) => ({
@@ -52,7 +52,7 @@ const parseDataItem = (value: any): OkJsonValue => {
   return {
     type,
     value,
-    match: false,
+    match: 'no-match',
   };
 };
 

@@ -1,13 +1,17 @@
 import React from 'react';
 
+import { OkJsonValue, FilterType } from '../../types';
+
 type Props = {
   data: {
     key: string,
+    value: OkJsonValue
   },
-  children: React.ReactNode
+  children: React.ReactNode,
+  filter: FilterType
 };
 
-const OkJsonObject = ({ children, data: { key } }: Props) => {
+const OkJsonObject = ({ children, data: { key, value }, filter }: Props) => {
   const [closed, setClosed] = React.useState<boolean>(false);
 
   const buttonClassName = closed
@@ -18,10 +22,14 @@ const OkJsonObject = ({ children, data: { key } }: Props) => {
     ? 'Ok-value Ok-Object-value closed'
     : 'Ok-value Ok-Object-value open';
 
+  const destinationHighlight = value.match === 'destination' && filter.matches(key);
+  const segmentHighlight = value.match === 'segment' || (value.match === 'destination' && !filter.matches(key));
+  const keyClassName = `Ok-key Ok-Object-key ${destinationHighlight ? 'Ok-highlighted-key' : ''} ${segmentHighlight ? 'Ok-highlighted-key-segment' : ''}`;
+
   return (
     <div className="Ok-block Ok-Object-block">
       {key ? (
-        <div className="Ok-key Ok-Object-key">
+        <div className={keyClassName}>
           <button
             className={buttonClassName}
             type="button"

@@ -55,6 +55,18 @@
   padding-right: 5px;
 }
 
+.Ok-highlighted-key {
+  background: cyan;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.Ok-highlighted-key-segment,
+.Ok-highlighted-key-segment > button {
+  font-weight: bold !important;
+  color: #333 !important;
+}
+
 .Ok-Array-value.open > .Ok-Json-body,
 .Ok-Array-value.open > .Ok-Array-bracket-close,
 .Ok-Object-value.open > .Ok-Object-bracket-close,

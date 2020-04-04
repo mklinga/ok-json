@@ -1,38 +1,40 @@
 export type ResultType = 'number' | 'string' | 'array' | 'object' | 'boolean' | 'null';
 
+export type MatchType = 'no-match' | 'segment' | 'destination';
+
 export type OkJsonNumberPrimitive = {
   type: 'number',
-  match?: boolean
+  match?: MatchType
   value: number
 };
 
 export type OkJsonStringPrimitive = {
   type: 'string',
-  match?: boolean
+  match?: MatchType
   value: string
 };
 
 export type OkJsonNullPrimitive = {
   type: 'null',
-  match?: boolean
+  match?: MatchType
   value: null
 };
 
 export type OkJsonBooleanPrimitive = {
   type: 'boolean',
-  match?: boolean
+  match?: MatchType
   value: boolean
 };
 
 export type OkJsonArrayPrimitive = {
   type: 'array',
-  match?: boolean
+  match?: MatchType
   value: Array<any>
 };
 
 export type OkJsonObjectPrimitive = {
   type: 'object',
-  match?: boolean
+  match?: MatchType
   value: {
     [key: string]: OkJsonNumberPrimitive |
     OkJsonStringPrimitive |

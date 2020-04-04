@@ -18,7 +18,6 @@ const Viewer: React.SFC<Props> = ({ data, filter }) => {
     ? [markMatches(getHitPaths(data, filter), data)]
     : [data];
 
-  console.log(visibleData[0]);
   return (
     <div>
       {visibleData.map((visibleDataSection) => (

@@ -1,4 +1,4 @@
-import { FilterType, OkJsonValue } from '../types';
+import { FilterType, OkJsonValue, MatchType } from '../types';
 import * as C from './common';
 
 const lastSegment = (str: string): string => C.last(str.split('.'));
@@ -10,7 +10,7 @@ export const getHitPaths = (data: OkJsonValue, filter: FilterType): Array<string
       case 'boolean':
       case 'number':
       case 'null':
-        return [filter.matches(`${value.value}`) ? path : null];
+        return [filter.matches(`${lastSegment(path)} ${value.value}`) ? path : null];
       case 'array':
         return [filter.matches(lastSegment(path)) ? path : null].concat(
           value.value.flatMap((nestedValue, index) => findHits(nestedValue, `${path}.${index}`)),
@@ -36,16 +36,30 @@ export const getHitPaths = (data: OkJsonValue, filter: FilterType): Array<string
 };
 
 export const markMatches = (paths: Array<string>, data: OkJsonValue): OkJsonValue => {
-  const realPaths = paths.flatMap((path) => C.segmentize(path.split('.')))
-    .map((pathArray) => pathArray
-      .reduce<Array<string>>((acc, segment) => acc.concat(['value', segment]), []));
+  const segmentPaths = paths.flatMap((path) => C.segmentize(path.split('.')))
+    .map((pathArray) => pathArray.reduce<Array<string>>((acc, segment) => acc.concat(['value', segment]), []));
 
-  const updateFn = (oldValue: object) => ({ ...oldValue, match: true });
+  const destinationPaths = paths.map((pathArray) => (
+    pathArray
+      .split('.')
+      .reduce<Array<string>>((acc, segment) => acc.concat(['value', segment]), [])
+  ));
 
-  return realPaths.reduce(
-    (acc, realPath) => C.update(realPath, updateFn, acc),
+  const updateFn = (newValue: MatchType) => (oldValue: object) => (
+    { ...oldValue, match: newValue }
+  );
+
+  const segments = segmentPaths.reduce(
+    (acc, segmentPath) => C.update(segmentPath, updateFn('segment'), acc),
     { ...data },
   );
+
+  const destinations = destinationPaths.reduce(
+    (acc, destinationPath) => C.update(destinationPath, updateFn('destination'), acc),
+    { ...segments },
+  );
+
+  return destinations;
 };
 
 export const pickByPath = (data: OkJsonValue, path: Array<string>): Array<OkJsonValue> => {

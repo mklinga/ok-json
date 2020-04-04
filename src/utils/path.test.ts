@@ -182,19 +182,9 @@ describe('markMatches', () => {
 
   it('Should mark given path of the data as match 1', () => {
     const exampleData: OkJsonValue = getExampleData();
-    const expected = {
-      ...exampleData,
-      value: {
-        ...exampleData.value,
-        d: {
-          ...exampleData.value.d,
-          match: true,
-          value: {
-            e: { type: 'number', value: 12, match: true },
-          },
-        },
-      },
-    };
+    const expected = { ...exampleData };
+    expected.value.d.match = 'segment';
+    expected.value.d.value.e.match = 'destination';
     const result = P.markMatches(['d.e'], exampleData);
     expect(result).toEqual(expected);
   });
@@ -202,24 +192,10 @@ describe('markMatches', () => {
   it('Should mark given path of the data as match 2', () => {
     const exampleData: OkJsonValue = getExampleData();
     const expected = { ...exampleData };
-    expected.value.d = {
-      ...exampleData.value.d,
-      match: true,
-      value: {
-        e: { match: true, type: 'number', value: 12 },
-      },
-    };
-    expected.value.a = {
-      ...exampleData.value.a,
-      match: true,
-      value: {
-        ...exampleData.value.a.value,
-        c: {
-          ...exampleData.value.a.value.c,
-          match: true,
-        },
-      },
-    };
+    expected.value.d.match = 'segment';
+    expected.value.d.value.e.match = 'destination';
+    expected.value.a.match = 'segment';
+    expected.value.a.value.c.match = 'destination';
 
     const result = P.markMatches(['d.e', 'a.c'], exampleData);
     expect(JSON.stringify(result)).toBe(JSON.stringify(expected));
@@ -228,18 +204,8 @@ describe('markMatches', () => {
   it('Should be able to mark arrays', () => {
     const exampleData: OkJsonValue = getExampleData();
     const expected = { ...exampleData };
-    expected.value.a = {
-      ...exampleData.value.a,
-      match: true,
-      value: exampleData.value.a.value,
-    };
-    expected.value.a.value.b = {
-      type: 'array',
-      match: true,
-      value: [
-        ...exampleData.value.a.value.b.value,
-      ],
-    };
+    expected.value.a.match = 'segment';
+    expected.value.a.value.b.match = 'destination';
 
     const result = P.markMatches(['a.b'], { ...exampleData });
     expect(JSON.stringify(result)).toBe(JSON.stringify(expected));
@@ -248,23 +214,9 @@ describe('markMatches', () => {
   it('Should be able to mark inside arrays', () => {
     const exampleData = getExampleData();
     const expected = { ...exampleData };
-    expected.value.a = {
-      ...exampleData.value.a,
-      match: true,
-      value: exampleData.value.a.value,
-    };
-    expected.value.a.value.b = {
-      type: 'array',
-      match: true,
-      value: [
-        ...exampleData.value.a.value.b.value,
-      ],
-    };
-    expected.value.a.value.b.value[2] = {
-      type: 'number',
-      match: true,
-      value: 3,
-    };
+    expected.value.a.match = 'segment';
+    expected.value.a.value.b.match = 'segment';
+    expected.value.a.value.b.value[2].match = 'destination';
 
     const result = P.markMatches(['a.b.2'], exampleData);
     expect(JSON.stringify(result)).toBe(JSON.stringify(expected));
@@ -273,13 +225,36 @@ describe('markMatches', () => {
   it('Should be able to mark objects', () => {
     const exampleData = getExampleData();
     const expected = { ...exampleData };
-    expected.value.a = {
-      type: 'object',
-      match: true,
-      value: expected.value.a.value,
-    };
+    expected.value.a.match = 'destination';
 
     const result = P.markMatches(['a'], exampleData);
+    expect(JSON.stringify(result)).toBe(JSON.stringify(expected));
+  });
+
+  it('Should be able to mark objects inside arrays', () => {
+    const exampleData: OkJsonValue = {
+      type: 'object',
+      value: {
+        a: {
+          type: 'array',
+          value: [
+            {
+              type: 'object',
+              value: {
+                c: { type: 'number', value: 1 },
+              },
+            },
+          ],
+        },
+      },
+    };
+
+    const expected = { ...exampleData };
+    expected.value.a.match = 'segment';
+    expected.value.a.value[0].match = 'segment';
+    expected.value.a.value[0].value.c.match = 'destination';
+
+    const result = P.markMatches(['a.0.c'], exampleData);
     expect(JSON.stringify(result)).toBe(JSON.stringify(expected));
   });
 });
