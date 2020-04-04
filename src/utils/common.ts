@@ -14,6 +14,12 @@ export const filter = (fn: (x: any) => boolean) => (xs: Array<any>) => xs.filter
 
 export const map = (fn: (x: any) => any) => (xs: Array<any>) => xs.map(fn);
 
+export const last = (arr: Array<any>): any => arr[arr.length - 1];
+
+const updateValue = (newValue: any, oldValue: any) => ((typeof newValue === 'function')
+  ? newValue(oldValue)
+  : newValue);
+
 export const update = (path: Array<string>, value: any, obj: any): any => {
   const isArray = Array.isArray(obj);
   const nextObj = isArray ? [].concat(obj) : { ...obj };
@@ -36,11 +42,23 @@ export const update = (path: Array<string>, value: any, obj: any): any => {
   }
 
   if (isArray) {
-    nextObj[idx] = value;
+    nextObj[idx] = updateValue(value, nextObj[idx]);
     return nextObj;
   }
 
-  return { ...nextObj, [idx]: value };
+  return { ...nextObj, [idx]: updateValue(value, nextObj[idx]) };
 };
 
 export const generateId: () => string = () => Math.random().toString(36).substring(2, 15);
+
+export const segmentize = (arr: Array<string>): Array<Array<string>> => {
+  const result: Array<Array<string>> = Array.from({ length: arr.length });
+  let start = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    for (let j = start; j < arr.length; j += 1) {
+      result[j] = (result[j] || []).concat(arr[i]);
+    }
+    start += 1;
+  }
+  return result;
+};

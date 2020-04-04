@@ -1,6 +1,8 @@
 import { FilterType, OkJsonValue } from '../types';
 import * as C from './common';
 
+const lastSegment = (str: string): string => C.last(str.split('.'));
+
 export const getHitPaths = (data: OkJsonValue, filter: FilterType): Array<string> => {
   function findHits(value: OkJsonValue, path: string = ''): Array<string | null> {
     switch (value.type) {
@@ -8,11 +10,15 @@ export const getHitPaths = (data: OkJsonValue, filter: FilterType): Array<string
       case 'boolean':
       case 'number':
       case 'null':
-        return [filter.matches(value.value) ? path : null];
+        return [filter.matches(`${value.value}`) ? path : null];
       case 'array':
-        return value.value.flatMap((nestedValue, index) => findHits(nestedValue, `${path}.${index}`));
+        return [filter.matches(lastSegment(path)) ? path : null].concat(
+          value.value.flatMap((nestedValue, index) => findHits(nestedValue, `${path}.${index}`)),
+        );
       case 'object':
-        return Object.entries(value.value).flatMap(([key, nestedValue]) => findHits(nestedValue, `${path}.${key}`));
+        return [filter.matches(lastSegment(path)) ? path : null].concat(
+          Object.entries(value.value).flatMap(([key, nestedValue]) => findHits(nestedValue, `${path}.${key}`)),
+        );
       default:
         return [null];
     }
@@ -27,6 +33,19 @@ export const getHitPaths = (data: OkJsonValue, filter: FilterType): Array<string
   );
 
   return hitPaths;
+};
+
+export const markMatches = (paths: Array<string>, data: OkJsonValue): OkJsonValue => {
+  const realPaths = paths.flatMap((path) => C.segmentize(path.split('.')))
+    .map((pathArray) => pathArray
+      .reduce<Array<string>>((acc, segment) => acc.concat(['value', segment]), []));
+
+  const updateFn = (oldValue: object) => ({ ...oldValue, match: true });
+
+  return realPaths.reduce(
+    (acc, realPath) => C.update(realPath, updateFn, acc),
+    { ...data },
+  );
 };
 
 export const pickByPath = (data: OkJsonValue, path: Array<string>): Array<OkJsonValue> => {

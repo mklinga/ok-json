@@ -21,6 +21,7 @@ Filter syntax will be important. For now, the following magic is available.
 ## Todo
 
 ```
+[ ] Separate segment and destination match on filter
 [ ] Show siblings for filtered objects/arrays
 [ ] Support array/string/etc for root
 [ ] Support for more magic in the filter

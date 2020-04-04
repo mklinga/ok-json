@@ -61,3 +61,12 @@ describe('update', () => {
     expect(result).toEqual(expected);
   });
 });
+
+describe('segmentize', () => {
+  it('Should segmentize', () => {
+    expect(C.segmentize(['a'])).toEqual([['a']]);
+    expect(C.segmentize([])).toEqual([]);
+    expect(C.segmentize(['a', 'b'])).toEqual([['a'], ['a', 'b']]);
+    expect(C.segmentize(['a', '0', 'c'])).toEqual([['a'], ['a', '0'], ['a', '0', 'c']]);
+  });
+});
