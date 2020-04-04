@@ -11,17 +11,16 @@ There is probably a deployed version available at https://suspicious.website/ok
 Filter syntax will be important. For now, the following magic is available.
 
 ```
-| Syntax    | Definition                                                     |
-| ----------|----------------------------------------------------------------|
-| <string>  | Search word to look for in *values*. Uses smartcase by default |
-| \c        | force ignore case                                              |
-| \C        | force match case                                               |
+| Syntax    | Definition                                         |
+| ----------|----------------------------------------------------|
+| <string>  | Searchword to look for. Uses smartcase by default. |
+| \c        | force ignore case                                  |
+| \C        | force match case                                   |
 ```
 
 ## Todo
 
 ```
-[ ] Separate segment and destination match on filter
 [ ] Show siblings for filtered objects/arrays
 [ ] Support array/string/etc for root
 [ ] Support for more magic in the filter
